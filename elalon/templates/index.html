@@ -1,0 +1,115 @@
+{% load static %}
+
+{% block nav%} {% include 'base.html' %}{% endblock %}
+
+
+	
+
+	<!-- Hero section  -->
+	
+	<div class="hero-section">
+	
+		<div class="heading">
+				<h5 class="text-left mt-5 ml-5 font-h5"> WELCOME TO... </h5>
+				<h1 class="text-right mt-3 mr-5 font-h1"> e-LalonEtic </h1>
+				<br>
+				<h3 class="text-right mt-5 mr-5 font-h3">We help you to<br>grow<br> your Business.</h3>
+				<br><br>
+				<button class="getstarted mr-5" >Get Started </button>
+		</div>
+		<div class="heading-back">
+		</div>
+		
+		<div class="hero-slider owl-carousel">
+			{% for item in heroimg1 %}
+				{% if forloop.counter < 15 %}
+
+               
+			<div class="hero-item portfolio-item set-bg" data-setbg="{{item.image.url}}">
+				<a href="{% url 'template' item.company.slug %}" class="hero-link">
+					<p>{{item.item_name}}</p>
+				</a>
+			</div>
+			 
+
+               	{% endif %}
+			{% endfor %}
+
+			
+		</div>
+		<div class="hero-slider owl-carousel">
+			{% for item in heroimg2 %}
+				{% if forloop.counter < 17 %}
+
+               
+			<div class="hero-item portfolio-item set-bg" data-setbg="{{item.image.url}}">
+				<a href="{% url 'template' item.company.slug %}" class="hero-link">
+					<p>{{item.item_name}}</p>
+				</a>
+			</div>
+			 
+
+               	{% endif %}
+			{% endfor %}
+		</div>
+		<div class="hero-slider owl-carousel">
+			{% for item in heroimg3 %}
+				{% if forloop.counter < 13 %}
+
+               
+			<div class="hero-item portfolio-item set-bg" data-setbg="{{item.image.url}}">
+				<a href="{% url 'template' item.company.slug %}" class="hero-link">
+					<p>{{item.item_name}}</p>
+				</a>
+			</div>
+			 
+
+               	{% endif %}
+			{% endfor %}
+		</div>
+		
+	</div>
+	
+	<img src=" {% static 'photo/img/border.png' %}" width="100%">
+	<!-- Hero section end  -->
+	<br>
+<div class="container">
+<p>
+  <a class="btn btn-primary" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Toggle first element</a>
+  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2">Toggle second element</button>
+  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target=".multi-collapse" aria-expanded="false" aria-controls="multiCollapseExample1 multiCollapseExample2">Toggle both elements</button>
+</p>
+<div class="row">
+  <div class="col">
+    <div class="collapse multi-collapse" id="multiCollapseExample1">
+      <div class="card card-body">
+        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="collapse multi-collapse" id="multiCollapseExample2">
+      <div class="card card-body">
+        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+      </div>
+    </div>
+  </div>
+</div>
+</div>	
+		
+	
+<!--====== Javascripts & Jquery ======-->
+	<script src="{% static 'photo/js/jquery-3.2.1.min.js' %}"></script>
+	<script src="{% static 'photo/js/bootstrap.min.js' %}"></script>
+	<script src="{% static 'photo/js/jquery.slicknav.min.js' %}"></script>
+	<script src="{% static 'photo/js/owl.carousel.min.js' %}"></script>
+	<script src="{% static 'photo/js/jquery.magnific-popup.min.js' %}"></script>
+	<script src="{% static 'photo/js/circle-progress.min.js' %}"></script>
+	<script src="{% static 'photo/js/mixitup.min.js' %}"></script>
+	<script src="{% static 'photo/js/instafeed.min.js' %}"></script>
+	<script src="{% static 'photo/js/masonry.pkgd.min.js' %}"></script>
+	<script src="{% static 'photo/js/main.js' %}"></script>
+	
+
+	</body>
+</html>

@@ -1,0 +1,58 @@
+
+
+
+{% load static%}
+{% block nav%} {% include 'base.html' %}{% endblock %}
+<body>
+	
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100">
+				<form class="login100-form validate-form" method="POST">
+				{% csrf_token %}
+					<span class="login100-form-title p-b-34">
+						Account Login
+					</span>
+					{% for field in form %}
+					<div class="wrap rs1-wrap ">
+						{{ field.label_tag }} <br>{{ field }}
+						<span class="focus-input100"></span>
+					</div>
+                    {% endfor %}
+					
+					<div class="container-login100-form-btn">
+						<button class="login100-form-btn" name="submit">
+							Register
+						</button>
+					</div>
+
+					<div class="w-full text-center p-t-27 p-b-239">
+						<span class="txt1">
+							Forgot
+						</span>
+
+						<a href="#" class="txt2">
+							User name / password?
+						</a>
+					</div>
+
+					<div class="w-full text-center">
+						<a href="{% url 'register' %}" class="txt3">
+							Sign Up
+						</a>
+					</div>
+				</form>
+
+				<div class="login100-more" style="background-image: url({% static 'login/images/bg-01.jpg' %});"></div>
+			</div>
+		</div>
+	</div>
+	
+	
+
+	<div id="dropDownSelect1"></div>
+
+	<script src="{% static 'login/js/main.js' %}"></script>
+
+</body>
+</html>
