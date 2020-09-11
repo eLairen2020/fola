@@ -1,0 +1,160 @@
+
+{% load static %}  
+
+{% block navbar %}{% include 'navbar.html' %}{% endblock navbar%}
+	    
+    
+
+    <!-- ##### Breadcumb Area Start ##### -->
+    <div class="breadcumb-area">
+        <!-- Breadcumb -->
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item"><a href="#"> My Profile</a></li>
+                
+            </ol>
+        </nav>
+    </div>
+    <!-- ##### Breadcumb Area End ##### -->
+    
+    <!-- ##### Catagory ##### -->
+    
+    <div class="clever-catagory bg-img d-flex align-items-center justify-content-center p-3" style="background-image: url({% static 'home/img/bg-img/bg2.jpg' %});">
+        <h3>My Profile</h3>
+    </div>
+
+<div class="section" style="padding-top:20px; padding-bottom:20px;">
+  <div class="container">
+    <div class="card" data-aos="fade-up" data-aos-offset="10">
+      <div class="row">
+
+        <div class="col-lg-2 col-md-3">
+          <div class="card-body">
+            
+            {% for i in profile %}
+              {%if i.photo.url != None %}
+              <img src="{{i.photo.url}}" style="border:1px solid black;" >
+              {%else%}
+              <img src="{% static 'login/dummyavatar/dummy_profile_pic.png' %}"  alt="profilepic" style="border:1px solid black;" >
+              {%endif%}
+
+            {%endfor%}
+            
+            </div>
+        </div>
+        
+        <div class="col-lg-5 col-md-9">
+          <div class="card-body">
+            <div class="h4 mt-0 title">Account Information</div><hr>
+            <div class="row ">
+              <div class="col-md-5 col-sm-4"><strong class="text-uppercase">Username:</strong></div>
+              <div class="col-md-7 col-sm-8">{{user.username}}</div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-md-5 col-sm-4"><strong class="text-uppercase">Email:</strong></div>
+              <div class="col-md-7 col-sm-8">{{user.email}}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-5 col-md-12">
+          <div class="card-body">
+            <div class="h4 mt-0 title">Change Account Info</div><hr>
+             {% if count != 0 %}
+            <p><a href="{% url 'myprofileedit' %}" class="btn clever-btn"> Edit Account Info</a><br>
+            </p>
+            {% else%}
+            
+            {%endif%}
+
+             
+            </div>
+        </div>
+      
+    </div>
+</div>
+</div>
+
+
+<div class="section"  id="about">
+  <div style="padding-top:20px; padding-bottom:20px;">
+  <div class="container">
+    <div class="card" data-aos="fade-up" data-aos-offset="10">
+      <div class="row">
+        {% for i in profile %}
+        <div class="col-lg-7 col-md-7">
+        
+          <div class="card-body">
+          
+            <div class="h4 mt-0 title">About Me</div><hr>
+            <p>{{i.say_something_about_yourself}}</p>
+          </div>
+        </div>
+        <div class="col-lg-5 col-md-5">
+          <div class="card-body">
+            <div class="h4 mt-0 title">Basic Information</div>
+            <div class="row">
+              <div class="col-sm-4"><strong class="text-uppercase">First Name:</strong></div>
+              <div class="col-sm-8">{{i.first_name}}</div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-sm-4"><strong class="text-uppercase">Last Name:</strong></div>
+              <div class="col-sm-8">{{i.last_name}}</div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-sm-4"><strong class="text-uppercase">Phone:</strong></div>
+              <div class="col-sm-8">{{i.phone}}</div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-sm-4"><strong class="text-uppercase">Occupation:</strong></div>
+              <div class="col-sm-8">{{i.occupation}}</div>
+            </div>
+            
+            <div class="row mt-3">
+              <div class="col-sm-4"><strong class="text-uppercase">Language:</strong></div>
+              <div class="col-sm-8">{{i.language}}</div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-sm-4"><strong class="text-uppercase">Address:</strong></div>
+              <div class="col-sm-8">{{i.address}}</div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+</div>   </div>
+
+
+
+
+
+
+                
+               
+                
+        
+    
+
+
+
+
+
+
+
+
+    
+
+    
+   
+                                       
+   
+    
+    {% block footer %}{% include 'footer.html' %}{% endblock footer%}
+    <!-- ##### Footer Area End ##### -->
+
+   
+</body>
+
+</html>

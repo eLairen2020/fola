@@ -1,0 +1,30 @@
+{% load static %}
+
+{% block msgs %}
+
+
+{% for message in messages %}
+<style>
+.fixed {
+  position: fixed;
+  top: 80px;
+  left: 0;
+  z-index:19;
+  
+
+}
+</style>
+
+
+<div id="message_container" class="fixed alert alert-danger alert-dismissible fade show mb-0" role="alert">
+  <strong>Message: </strong> This is a Beta version. Most of the contents are for trial run and we do not posses its copyrights
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+
+
+{% endfor %}
+	
+{% endblock %}

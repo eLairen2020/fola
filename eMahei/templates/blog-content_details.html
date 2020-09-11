@@ -1,0 +1,170 @@
+
+
+{% load static %}
+<!-- ##### Header Area End ##### -->
+    {% block navbar %}{% include 'navbar.html' %}{% endblock%}
+	
+
+
+    <!-- ##### Hero Area Start ##### -->
+   <div class="breadcumb-area">
+        <!-- Breadcumb -->
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item"><a href="#">Blog</a></li>
+                
+            </ol>
+        </nav>
+    </div>
+    
+    
+    
+    
+    <div class="clever-catagory bg-img d-flex align-items-center justify-content-center " style="background-image: url({% static 'home/img/bg-img/bg2.jpg' %});">
+        <h3>Our Blog</h3>
+    </div>
+	<img src="{% static 'home/img/bg-img/IMG_0841.jpg' %}" style="opacity: 0.1">
+    <!-- ##### Hero Area End ##### -->
+
+
+
+	<!-- page section -->
+	<div class="page-section spad">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8 col-sm-7 blog-posts">
+					<!-- Single Post -->
+					{% for b in bcont%}
+					<div class="single-post">
+						<div class="post-item">
+						<div class="post-thumbnail" >
+							<img src="{{b.blog_image.url}}" alt="">
+							<div class="post-date">
+								
+								<h3>{{b.date_of_publish}}</h3>
+							</div>
+						</div>
+						<div class="post-content">
+							<h2 class="post-title"><b>{{b.title}}</b></h2>
+							<div class="fb-like" data-href="http://www.e-lairen.com/blog/blog_details/{{b.id}}" data-width="5" data-layout="button_count" data-action="like" data-size="large" data-share="true"></div>
+									{% for tag in b.tags.all %}
+									<a href="{% url 'tagged' tag.slug %}" class="mr-1 badge badge-info">#{{ tag }}</a>
+									{% endfor %}
+							<div class="post-meta">
+								<a href="">{{b.author}}</a>
+								<a href="">{{b.about_designation}}</a>
+								
+							</div>
+							<p style= "margin:0; a:focus:blue; !important">{{ b.article|safe}}
+      							
+							</p>
+						</div>
+					</div><hr>
+						<!-- Post Author -->
+						<div class="author">
+							<div class="avatar">
+								<img  width="200" height="200" src="{{b.author_picture.url}}" alt="">
+							</div>
+							<div class="author-info">
+								<h2>{{b.author}} <span>Author</span></h2>
+								<p>{{b.about_designation}}</p>
+								<p>{{b.about_author|safe}}</p>
+							</div>
+						</div>
+						<hr>
+						<!-- Post Comments -->
+						<!-- Post Comments -->
+						<div class="comments">
+
+							<h2>Leave a comment</h2>
+							<div class="fb-comments" data-href="http://www.e-lairen.com/blog/blog_details/{{b.id}}" data-numposts="50" data-width=""></div>
+
+						</div>
+							
+						
+					{%endfor%}
+						
+					</div>
+				</div>
+				
+
+				<div class="col-md-4 col-sm-5 sidebar">
+					<!-- Single widget -->
+					<div class="widget-item">
+						<form action="#" class="search-form">
+							<input type="text" placeholder="Search">
+							<button class="search-btn"><i class="fa fa-search"></i></button>
+						</form>
+					</div>
+					<!-- Single widget -->
+					<div class="widget-item">
+
+						<h2 class="widget-title">Categories</h2>
+						<ul>
+                        	{% for cat in category%}
+							
+							<li><a href="{% url 'blog_cat' cat.id %}">{{cat.title}}  <span style="float:right;">{{ cat.blog_set.count }}</span><hr></a></li>
+							{%endfor%}	
+						</ul>
+					</div>
+					<!-- Single widget -->
+					<div class="widget-item">
+						<h2 class="widget-title">Instagram</h2>
+						<ul class="instagram">
+							<li><img src="img/instagram/1.jpg" alt=""></li>
+							<li><img src="img/instagram/2.jpg" alt=""></li>
+							<li><img src="img/instagram/3.jpg" alt=""></li>
+							<li><img src="img/instagram/4.jpg" alt=""></li>
+							<li><img src="img/instagram/5.jpg" alt=""></li>
+							<li><img src="img/instagram/6.jpg" alt=""></li>
+						</ul>
+					</div>
+					<!-- Single widget -->
+					<div class="widget-item">
+						<h2 class="widget-title">Tags</h2>
+						<ul class="tag">
+							{% for t in tag_all%}
+							{% if forloop.counter < 20 %}
+							<li><a href="{% url 'tagged' t.slug %}"> # {{t.name}}</a></li>
+							{%endif%}
+						{%endfor%}
+						</ul>
+					</div>
+					<!-- Single widget -->
+					<div class="widget-item">
+						<h2 class="widget-title">Quote</h2>
+						<div class="quote">
+							<span class="quotation">‘​‌‘​‌</span>
+							<p>Vivamus in urna eu enim porttitor consequat. Proin vitae pulvinar libero. Proin ut hendrerit metus. Aliquam erat volutpat. Donec fermen tum convallis ante eget tristique. Sed lacinia turpis at ultricies vestibulum.</p>
+						</div>
+					</div>
+					<!-- Single widget -->
+					<div class="widget-item">
+						<h2 class="widget-title">Add</h2>
+						<div class="add">
+							<a href=""><img src="img/add.jpg" alt=""></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- page section end-->
+
+
+
+
+     <!-- # Footer Area Start ##### -->
+    {% block footer %}{% include 'footer.html' %}{% endblock footer%}
+    <!-- # Footer Area End ##### -->
+
+    <!-- ##### All Javascript Script ##### -->
+    <!-- jQuery-2.2.4 js -->
+   
+	
+
+    
+</body>
+
+</html>

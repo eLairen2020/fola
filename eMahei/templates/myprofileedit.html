@@ -1,0 +1,215 @@
+
+{% load static %}  
+
+{% block navbar %}{% include 'navbar.html' %}{% endblock navbar%}
+	    
+    
+
+    <!-- ##### Breadcumb Area Start ##### -->
+    <div class="breadcumb-area">
+        <!-- Breadcumb -->
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item"><a href="#"> Edit My Profile</a></li>
+                
+            </ol>
+        </nav>
+    </div>
+    <!-- ##### Breadcumb Area End ##### -->
+    
+    <!-- ##### Catagory ##### -->
+    
+    <div class="clever-catagory bg-img d-flex align-items-center justify-content-center p-3" style="background-image: url({% static 'home/img/bg-img/bg2.jpg' %});">
+        <h3>Edit My Profile</h3>
+    </div>
+
+<div class="section" style=" padding-top:20px; padding-bottom:20px;">
+
+  <div class="container">
+  
+    <div class="card" style="background-color:lightgrey;" data-aos="fade-up" data-aos-offset="10">
+      <div class="row">
+
+        <div class="col-lg-2 col-md-3 justify-content-center">
+          <div class="card-body">
+            
+            {% for i in profile %}
+              
+              {%if i.photo.url != None %}
+              <img src="{{i.photo.url}}" style="border:1px solid black;" >
+              {%else%}
+              <img src="{% static 'login/dummyavatar/dummy_profile_pic.png' %}"  alt="profilepic" style="border:1px solid black;" >
+              {%endif%}<hr>
+            {%endfor%}
+
+              <form method="POST" enctype="multipart/form-data">
+              {%csrf_token%}
+              
+              <input class ="col-sm-12" type="file" name="photo">
+              <input class ="col-sm-12" id="submit_photo" name="submit_photo" type="submit" value="Upload">
+
+              
+              </form>
+            
+          </div>
+        </div>
+            
+        
+        <div class="col-lg-5 col-md-9">
+            <form method="POST">
+            {% csrf_token %}
+
+          <div class="card-body">
+            <div class="h4 mt-0 title">Account Information</div><hr>
+            <div class="row ">
+              <div class="col-md-5 col-sm-4"><strong class="text-uppercase">Username:</strong></div>
+              <div class="col-md-7 col-sm-8">{{user.username}}</div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-md-5 col-sm-4"><strong class="text-uppercase">Email:</strong></div>
+              <div class="col-md-7 col-sm-8"><input type="text" class="col-12" Value="{{user.email}}" name="email"></div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-md-5 col-sm-4"></div>
+              <div class="col-md-7 col-sm-8"><input class ="col-sm-12" name="submit_email" type="submit" value="Change Email"></div>
+            </div>
+          </div>
+          
+          </form>
+
+        </div>
+
+        <div class="col-lg-5 col-md-12">
+          <div class="card-body">
+            <div class="h4 mt-0 title">Change Password</div><hr>
+            <form method="POST">
+              {% csrf_token %}
+                {% for field in form %}
+                    <div class="row">
+                      <div class="col-sm-12"><strong class="text-uppercase">{{ field.label_tag }} </strong></div>
+                      <div class="col-sm-12">{{ field }}</div>
+                    </div>
+                    {% if field.help_text %}
+                      <small style="color: grey">{{ field.help_text }}</small>
+                    {% endif %}
+                    {% for error in field.errors %}
+                      <p style="color: red">{{ error }}</p>
+                    {% endfor %}
+                  
+                {% endfor %}<br>
+                <input name="submit_password" type="submit" Value="Save changes">
+            </form>
+            
+            </div>
+           
+        </div>
+         
+        
+      
+    </div>
+          
+</div>
+</div>
+
+
+    
+
+
+
+
+<div class="section"  id="about">
+  <div style="padding-top:20px; padding-bottom:20px;">
+  <div class="container">
+    <div class="card" style="background-color:lightgrey;" data-aos="fade-up" data-aos-offset="10">
+      <div class="row">
+        {% for i in profile %}
+        <div class="col-lg-5 col-md-5">
+        
+          <div class="card-body">
+
+          <form method="POST" >
+            {% csrf_token %}
+          
+            <div class="h4 mt-0 title">About Me</div><hr>
+            <p><textarea class="col-12" rows="7" name="about">{{i.say_something_about_yourself}}</textarea></p>
+          </div>
+        </div>
+          <div class="col-lg-7 col-md-7">
+            <div class="card-body">
+              <div class="h4 mt-0 title">Basic Information</div>
+              <input type="hidden" class="col-12" Value="{{i.id}}" name="id">
+              <div class="row">
+                <div class="col-sm-4"><strong class="text-uppercase">First Name:</strong></div>
+                <div class="col-sm-8"><input type="text" class="col-12" Value="{{i.first_name}}" name="first_name"></div>
+              </div>
+              <div class="row mt-3">
+                <div class="col-sm-4"><strong class="text-uppercase">Last Name:</strong></div>
+                <div class="col-sm-8"><input type="text" class="col-12" Value="{{i.last_name}}" name="last_name"></div>
+              </div>
+              <div class="row mt-3">
+                <div class="col-sm-4"><strong class="text-uppercase">Phone:</strong></div>
+                <div class="col-sm-8"><input type="text" class="col-12" Value="{{i.phone}}" name="phone"></div>
+              </div>
+              <div class="row mt-3">
+                <div class="col-sm-4"><strong class="text-uppercase">Occupation:</strong></div>
+                <div class="col-sm-8"><input type="text" class="col-12" Value="{{i.occupation}}" name="occupation"></div>
+              </div>
+              
+              <div class="row mt-3">
+                <div class="col-sm-4"><strong class="text-uppercase">Language:</strong></div>
+                <div class="col-sm-8"><input type="text" class="col-12" Value="{{i.language}}" name="language"></div>
+              </div>
+              <div class="row mt-3">
+                <div class="col-sm-4"><strong class="text-uppercase">Address:</strong></div>
+                <div class="col-sm-8"><textarea  class="col-12" rows="3" name="address">{{i.address}}</textarea></div>
+              </div>
+              <div class="row mt-3">
+                <div class="col-sm-4"> </div>
+                <div class="col-sm-8"><input class ="col-sm-12" name="submit_basic" type="submit" value="Save"></div>
+            </div>
+
+            </div>
+          </form>
+          {% endfor %}
+          
+        </div>
+    </div> 
+</div>
+
+
+</div>   
+</div>
+
+
+
+
+
+
+                
+               
+                
+        
+    
+
+
+
+
+
+
+
+
+    
+
+    
+   
+                                       
+   
+    
+    {% block footer %}{% include 'footer.html' %}{% endblock footer%}
+    <!-- ##### Footer Area End ##### -->
+
+   
+</body>
+
+</html>

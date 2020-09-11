@@ -1,0 +1,120 @@
+
+{% load static %}  
+
+{% block navbar %}{% include 'navbar.html' %}{% endblock navbar%}
+	    
+    
+
+    <!-- ##### Breadcumb Area Start ##### -->
+    <div class="breadcumb-area">
+        <!-- Breadcumb -->
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item"><a href="#">My Courses</a></li>
+                
+            </ol>
+        </nav>
+    </div>
+    <!-- ##### Breadcumb Area End ##### -->
+    
+    <!-- ##### Catagory ##### -->
+    
+    <div class="clever-catagory bg-img d-flex align-items-center justify-content-center p-3" style="background-image: url({% static 'home/img/bg-img/bg2.jpg' %});">
+        <h3>My Courses</h3>
+    </div>
+    
+    
+
+    
+   
+                                       
+    <!-- ##### Popular Course Area Start ##### -->
+    <section class="popular-courses-area section-padding-100">
+        
+        <div class="container">
+        <div class="row">
+                <!-- Single Popular Course -->
+                {% for item in mycourse %}
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="single-popular-course mb-100 wow fadeInUp" data-wow-delay="250ms">
+                        <a href="{% url 'coursedetails' item.course_name.id %}"> <img  width="200" height="300" src="{{item.course_name.thumnail.url}}" > </a>
+                        <!-- Course Content -->
+                        <div class="course-content">
+                            <a href=""><h4>{{item.course_name.title}}</h4></a>
+                            <div class="meta d-flex align-items-center">
+                                <a href="#">{{item.course_name.instructor}}</a>
+                                <span><i class="fa fa-circle" aria-hidden="true"></i></span>
+                                {{item.course_name.category}}
+                            </div>
+                            <p>{{item.course_name.subtitle}}</p>
+                        </div>
+                        <!-- Seat Rating Fee -->
+                        <div class="seat-rating-fee d-flex justify-content-between">
+                            <div class="seat-rating h-100 d-flex align-items-center">
+                                <div class="seat">
+                                    <i class="fa fa-user" aria-hidden="true"></i> {{item.course_name.durations}}
+                                </div>
+                                <div class="rating">
+                                    <i class="fa fa-star" aria-hidden="true"></i> 4.5
+                                </div>
+                                
+                            </div>
+                            <div class="course-fee h-100">
+                                <a href="#" class="free">Rs. {{item.course_name.price}}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+ </div>
+
+
+            <div class="container">       
+                <div class="row ">
+                    <div class="col-12 ">
+                        
+                        <div class="pagination justify-content-center">
+                            <div class="load-more text-center wow fadeInUp" data-wow-delay="50ms">
+                                {% if mycourse.has_previous %}
+                                <a class="pagination-action" href="?page=1">
+                                    <i class="fa fa-angle-double-left" aria-hidden="true"></i> </a>
+                                <a class="pagination-action" href="?page={{ mycourse.previous_page_number }}">
+                                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                                </a>
+                                {% endif %}
+                                {% for num in mycourse.paginator.page_range %}
+                                    {% if mycourse.number == num %}
+                                        <span class="pagination-number pagination-current">{{ num }}</span>
+                                    {% elif num > mycourse.number|add:'-3' and num < mycourse.number|add:'3' %}
+                                        <a class="pagination-number" href="?page={{ num }}">{{ num }}</a>
+                                    {% endif %}
+                                {% endfor %}
+                                {% if mycourse.has_next %}
+                                    <a class="pagination-action" href="?page={{ mycourse.next_page_number }}">
+                                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                    </a>
+                                    <a class="pagination-action" href="?page={{ mycourse.paginator.num_pages }}">
+                                        <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                                    </a>
+                                {% endif %}
+                            </div>  
+                        </div>
+                        
+                    </div>
+                </div>
+            <div>
+        </div>
+    </section>
+
+   
+    <!-- ##### Footer Area Start ##### -->
+    <!-- ##### Footer Area Start ##### -->
+    {% block footer %}{% include 'footer.html' %}{% endblock footer%}
+    <!-- ##### Footer Area End ##### -->
+
+</body>
+
+</html>

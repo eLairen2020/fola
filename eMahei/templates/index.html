@@ -1,0 +1,383 @@
+
+{% load static %}
+<!-- ##### Header Area End ##### -->
+
+    {% block navbar %}{% include 'navbar.html' %}{% endblock%}
+
+
+     {%block msg%} {% include 'msg.html' %} {%endblock%}
+    
+
+   
+	
+      
+    <!-- ##### Hero Area Start ##### -->
+    <section class="bg-img bg-overlay-2by5" style="height:500px; background-image: url({% static 'home/img/bg-img/bg1.jpg' %});">
+	
+        <div class="container h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-12">
+                    <!-- Hero Content -->
+                    
+                    <div class="hero-content text-center d-block">
+
+
+
+                        <h2>Let's Study Together </h2>
+                       
+                        <a href="{% url 'signin' %}" class="btn clever-btn">Get Started</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+	<img src="{% static 'home/img/bg-img/IMG_0841.jpg' %}" style="opacity: 0.1">
+    <!-- ##### Hero Area End ##### -->
+
+  
+
+    <!-- ##### Popular Courses Start ##### -->
+    <section class="popular-courses-area mt-5" style="background-image: url({% static 'img/core-img/texture.png' %});">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-heading">
+                        <h3>eMahei Categories</h3>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="single-course-content ">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-lg-12">
+                    <div class="course--content">
+                        <hr>
+                        <ul class="nav nav-pills mb-3 justify-content-center" id="pills-tab" role="tablist">
+                        {% for c in cat_nav %}
+                            <li class="nav-item">
+                                <a class="nav-link" style="" id="pills-{{c.id}}-tab" data-toggle="pill" href="#pills-{{c.id}}" role="tab" aria-controls="pills-{{c.id}}" aria-selected="true">{{c.name}}</a>
+                            </li>
+                        {%endfor%}
+                            
+                        </ul>
+                        <hr>
+                            <div class="tab-content" id="pills-tabContent">
+                            {% for c in cat_nav %}
+                            <div class="tab-pane fade show " id="pills-{{c.id}}" role="tabpanel" aria-labelledby="pills-{{c.id}}-tab">
+
+
+                            <div class="row">
+                            {% for item in c.courses_set.all %}
+                                {% if forloop.counter < 4 %}
+                                <div class="col-12 col-md-6 col-lg-4">
+                                    <div class="single-popular-course mb-100 wow " data-wow-delay="30ms">
+                                        <a href="{% url 'coursedetails' item.id %}"> <img src="{{item.thumnail.url}}" > </a>
+                                        <!-- Course Content -->
+                                        <div class="course-content ">
+                                            <a href="{% url 'coursedetails' item.id %}"><h5>{{item.title}}</h5></a>
+
+                                            <div class="meta  align-items-center">
+                                                <a href="#">{{item.instructor}}</a>
+                                                <span><i class="fa fa-circle" aria-hidden="true"></i></span>
+                                                {{item.instructor.qualifications}}
+                                                <span><i class="fa fa-circle" aria-hidden="true"></i></span>
+                                                
+                                                {{item.category}}
+                                            </div>
+                                            
+                                        
+                                            <div class="meta  align-items-center">
+                                                {{item.subtitle}}
+                                            </div>
+
+                                            
+                                        </div>
+                                        <!-- Seat Rating Fee -->
+                                        <div class="seat-rating-fee d-flex justify-content-between">
+                                            <div class="seat-rating h-100 d-flex align-items-center">
+                                                <div class="seat">
+                                                    <i class="fa fa-user" aria-hidden="true"></i> {{item.durations}}
+                                                </div>
+                                                <div class="rating">
+                                                    <i class="fa fa-star" aria-hidden="true"></i> 4.5
+                                                </div>
+                                            </div>
+                                            <div class="course-fee h-100">
+                                                <a href="{% url 'coursedetails' item.id %}" class="free">Rs. {{item.price}}</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {%endif%}
+                            {% endfor %}
+                            </div>
+                            </div>
+                            {%endfor%}
+                            <div class="row">
+                            <div class="col-12">
+                                <div class="load-more text-center wow fadeInUp" data-wow-delay="100ms">
+                                    <a href="" class="btn clever-btn btn-2">Load More</a>
+                                </div>
+                            </div>
+                        </div>
+                            
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ##### Courses Content End ##### -->
+
+    
+
+
+
+
+                
+
+                
+                
+                        
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ##### Popular Courses End ##### -->
+
+    
+
+
+
+     <!-- ##### Latest Courses Start ##### -->
+    <section class="popular-courses-area section-padding-50-0" style="background-image: url({% static 'img/core-img/texture.png' %});">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-heading mt-5">
+                        <h3>eMahei Latest Courses</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="row">
+
+                            {% for item in Courses %}
+                                {% if forloop.counter < 4 %}
+                                <div class="col-12 col-md-6 col-lg-4">
+                                    <div class="single-popular-course mb-100 wow " data-wow-delay="30ms">
+                                        <a href="{% url 'coursedetails' item.id %}"> <img src="{{item.thumnail.url}}" > </a>
+                                        <!-- Course Content -->
+                                        <div class="course-content ">
+                                            <a href="{% url 'coursedetails' item.id %}"><h5>{{item.title}}</h5></a>
+
+                                            <div class="meta  align-items-center">
+                                                <a href="#">{{item.instructor}}</a>
+                                                <span><i class="fa fa-circle" aria-hidden="true"></i></span>
+                                                {{item.instructor.qualifications}}
+                                                <span><i class="fa fa-circle" aria-hidden="true"></i></span>
+                                                
+                                                {{item.category}}
+                                            </div>
+                                            
+                                        
+                                            <div class="meta  align-items-center">
+                                                {{item.subtitle}}
+                                            </div>
+
+                                            
+                                        </div>
+                                        <!-- Seat Rating Fee -->
+                                        <div class="seat-rating-fee d-flex justify-content-between">
+                                            <div class="seat-rating h-100 d-flex align-items-center">
+                                                <div class="seat">
+                                                    <i class="fa fa-user" aria-hidden="true"></i> {{item.durations}}
+                                                </div>
+                                                <div class="rating">
+                                                    <i class="fa fa-star" aria-hidden="true"></i> 4.5
+                                                </div>
+                                            </div>
+                                            <div class="course-fee h-100">
+                                                <a href="{% url 'coursedetails' item.id %}" class="free">Rs. {{item.price}}</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {%endif%}
+                            {% endfor %}
+                            </div>
+                </div>
+
+                            <div class="row">
+                            <div class="col-12">
+                                <div class="load-more text-center wow fadeInUp" data-wow-delay="100ms">
+                                    <a href="" class="btn clever-btn btn-2">Load More</a>
+                                </div>
+                            </div>
+                        
+                
+                            
+
+
+            </div>
+        </div>
+    </section>
+    <!-- ##### Popular Courses End ##### -->
+    
+      <!-- ##### Cool Facts Area Start #####  -->
+    <section class="cool-facts-area section-padding-100-0">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-6 col-sm-4 col-lg-3">
+                    <div class="single-cool-facts-area text-center mb-100 wow fadeInUp" data-wow-delay="250ms">
+                        <div class="icon">
+                            <img src="{% static 'home/img/core-img/docs.png' %}" alt="">
+                        </div>
+                        
+                        <h2><span class="counter">{{Courses.count}}</span></h2>
+                        
+                        <h5>Available Courses</h5>
+                    </div>
+                </div>
+
+               
+                <div class="col-6 col-sm-4 col-lg-3">
+                    <div class="single-cool-facts-area text-center mb-100 wow fadeInUp" data-wow-delay="500ms">
+                        <div class="icon">
+                            <img src="{% static 'home/img/core-img/star.png' %}" alt="">
+                        </div>
+                        <h2><span class="counter">{{blog.count}}</span></h2>
+                        <h5>Blog</h5>
+                    </div>
+                </div>
+
+               
+                <div class="col-6 col-sm-4 col-lg-3">
+                    <div class="single-cool-facts-area text-center mb-100 wow fadeInUp" data-wow-delay="750ms">
+                        <div class="icon">
+                            <img src="{% static 'home/img/core-img/events.png' %}" alt="">
+                        </div>
+                        <h2><span class="counter">{{inst.count}}</span></h2>
+                        <h5>Instructor</h5>
+                    </div>
+                </div>
+
+               
+                <div class="col-6 col-sm-4 col-lg-3">
+                    <div class="single-cool-facts-area text-center mb-100 wow fadeInUp" data-wow-delay="1000ms">
+                        <div class="icon">
+                            <img src="{% static 'home/img/core-img/earth.png' %}" alt="">
+                        </div>
+                        <h2><span class="counter">{{enotes.count}}</span></h2>
+                        <h5>E Notes</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+      <!--   # Cool Facts Area End ##### -->
+
+    
+
+    <!-- ##### Blog Area Start ##### -->
+    <section class="blog-area section-padding-50-0">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-heading">
+                        <h3>From Our Blog</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+            {%for item in blog%}
+                {% if forloop.counter < 3 %}
+                <!-- Single Blog Area -->
+                <div class="col-12 col-md-6">
+                    <div class="single-blog-area mb-50 wow fadeInUp" data-wow-delay="50ms">
+                        <img src="{{item.blog_image.url}}" alt="">
+                        <!-- Blog Content -->
+                        <div class="blog-content">
+                            <a href="#" class="blog-headline">
+                                <h4>{{item.title}}</h4>
+                            </a>
+                            <div class="meta align-items-center">
+                                <a href="#">{{item.author}}</a>
+                                <span><i class="fa fa-circle" aria-hidden="true"></i></span>
+                                <a href="#">{{item.category}}</a>
+                                <span><i class="fa fa-circle" aria-hidden="true"></i></span>
+                                <a href="#">{{item.date_of_publish}}</a>
+                            </div>
+                            <p>{{ item.article|safe|truncatewords:"40" }}
+      							<a href="{% url 'blog_details' item.id%}">read more</a>
+							</p>
+                        </div>
+                    </div>
+                </div>
+                {%endif%}
+            {%endfor%}
+                            
+            </div>
+            <div class="row">
+                            <div class="col-12">
+                                <div class="load-more text-center wow fadeInUp mb-3" data-wow-delay="100ms">
+                                    <a href="{% url 'blog' %}" class="btn clever-btn btn-2">Load More</a>
+                                </div>
+                            </div>
+            
+            
+
+        
+        </div>
+    </section>
+
+    <!-- ##### Blog Area End ##### -->
+    <section class="categories">
+        <div class="container">
+            <div class="row">
+                <div class="categories__slider owl-carousel">
+                    <div class="col-lg-3">
+                        <div class="categories__item set-bg" data-setbg="img/categories/cat-1.jpg">
+                            <h5><a href="#">Fresh Fruit</a></h5>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="categories__item set-bg" data-setbg="img/categories/cat-2.jpg">
+                            <h5><a href="#">Dried Fruit</a></h5>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="categories__item set-bg" data-setbg="img/categories/cat-3.jpg">
+                            <h5><a href="#">Vegetables</a></h5>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="categories__item set-bg" data-setbg="img/categories/cat-4.jpg">
+                            <h5><a href="#">drink fruits</a></h5>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="categories__item set-bg" data-setbg="{% static 'home/img/categories/cat-5.jpg'%}">
+                            <h5><a href="#">drink fruits</a></h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Categories Section End -->
+
+    <!-- ##### Footer Area Start ##### -->
+    {% block footer %}{% include 'footer.html' %}{% endblock footer%}
+
+    
+</body>
+
+</html>
