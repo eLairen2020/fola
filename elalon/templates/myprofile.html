@@ -91,34 +91,93 @@
           <h2 class="text-center"> Add a Bussiness</h2>
       <div class="row jumbotron">
           <div class="col-12 col-sm-6 form-group">
-              <label for="name-f">Name</label>
-              <input type="text" class="form-control" name="hero" name="hero" >
+              <label for="name-f">Category</label>
+              <select class="form-control" style="width:100%;" name="category" id="category" required> * required
+                {% for s in category %}
+                <option value="{{s.name}}">{{s.name}}</option>
+                {% endfor %}
+                </select>
           </div>
           <div class="col-12 col-sm-6 form-group">
-            <label for="name-f">Name</label>
-            <input type="text" class="form-control" name="hero" name="hero" >
+            <label for="name-f">name_of_company</label>
+            <input type="text" class="form-control" name="name_of_company" id="name_of_company" >
           </div>
           <div class="col-12 col-sm-6 form-group">
-            <label for="name-f">Name</label>
-            <input type="text" class="form-control" name="hero" name="hero" >
+            <label for="name-f">des_of_company</label>
+            <input type="text" class="form-control" name="des_of_company" id="des_of_company" >
           </div>
           <div class="col-12 col-sm-6 form-group">
-            <label for="name-f">Name</label>
-            <input type="text" class="form-control" name="hero" name="hero" >
+            <label for="name-f">slug</label>
+            <input type="text" class="form-control" name="slug" id="slug" >
           </div>
           <div class="col-12 col-sm-6 form-group">
-            <label for="name-f">Name</label>
-            <input type="text" class="form-control" name="hero" name="hero" >
+            <label for="name-f">owner_of_the_company</label>
+            <input type="text" class="form-control" name="owner_of_the_company" id="owner_of_the_company" >
           </div>
           <div class="col-12 col-sm-6 form-group">
-            <label for="name-f">Name</label>
-            <input type="text" class="form-control" name="hero" name="hero" >
+            <label for="name-f">owner_image</label>
+            <input type="file" class="form-control" name="owner_image" id="owner_image" >
           </div>
-
-          <div class="col-12 col-md-6 form-group">
-              <label for="bg Image">Background Image </label>
-              <input type="file" class="form-control" name="bg" id="bg" >
+          <div class="col-12 col-sm-6 form-group">
+            <label for="name-f">about_owner</label>
+            <input type="text" class="form-control" name="about_owner" id="about_owner" >
           </div>
+          <div class="col-12 col-sm-6 form-group">
+            <label for="name-f">address</label>
+            <input type="text" class="form-control" name="address" id="address" >
+          </div>
+          <div class="col-12 col-sm-6 form-group">
+            <label for="name-f">address1</label>
+            <input type="text" class="form-control" name="address1" id="address1" >
+          </div>
+          <div class="col-12 col-sm-6 form-group">
+            <label for="name-f">company_email</label>
+            <input type="text" class="form-control" name="company_email" id="company_email" >
+          </div>
+          <div class="col-12 col-sm-6 form-group">
+            <label for="name-f">company_phone</label>
+            <input type="text" class="form-control" name="company_phone" id="company_phone" >
+          </div>
+          <div class="col-12 col-sm-6 form-group">
+            <label for="name-f">opentiming</label>
+            <input type="text" class="form-control" name="opentiming" id="opentiming" >
+          </div>
+          <div class="col-12 col-sm-6 form-group">
+            <label for="name-f">add_photoslider</label>
+            <select class="form-control" style="width:100%;" name="add_photoslider" id="add_photoslider" required> * required
+              <option value="True">Yes </option>
+              <option value="False">No </option>
+              </select>
+          </div>
+          <div class="col-12 col-sm-6 form-group">
+            <label for="name-f">add_offer_section</label>
+            <select class="form-control" style="width:100%;" name="add_offer_section" id="add_offer_section" required> * required
+              <option value="True">Yes </option>
+              <option value="False">No </option>
+              </select>
+          </div>
+          <div class="col-12 col-sm-6 form-group">
+            <label for="name-f">add_pricingtable</label>
+            <select class="form-control" style="width:100%;" name="add_pricingtable" id="add_pricingtable" required> * required
+              <option value="True">Yes </option>
+              <option value="False">No </option>
+              </select>
+          </div>
+          <div class="col-12 col-sm-6 form-group">
+            <label for="name-f">add_services</label>
+            <select class="form-control" style="width:100%;" name="add_services" id="add_services" required> * required
+              <option value="True">Yes </option>
+              <option value="False">No </option>
+              </select>
+          </div>
+          <div class="col-12 col-sm-6 form-group">
+            <label for="name-f">add_menulist</label>
+            <select class="form-control" style="width:100%;" name="add_menulist" id="add_menulist" required> * required
+              <option value="True">Yes </option>
+              <option value="False">No </option>
+              </select>
+          </div>
+          
           <div class="col-12 form-group mb-0">
               <input type="submit" class="btn2 float-right ml-3" name="submitAddbussiness">
               <button class="btn1 float-right" onclick="closeForm()">Close</button>

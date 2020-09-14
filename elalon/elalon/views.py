@@ -5,14 +5,13 @@ import os
 
 
 
+
 def elalon(request):
 
     heroimg1 = Items.objects.order_by('?')
     heroimg2 = Items.objects.order_by('?')
     heroimg3 = Items.objects.order_by('?')
 
-
-    
     return render(request,"index.html", { 'heroimg1':heroimg1,'heroimg2':heroimg2,'heroimg3':heroimg3 })
 
 def template(request,slug):
@@ -30,6 +29,8 @@ def template(request,slug):
         return render(request,"template2.html",{'company':company, 'design': design})
 
     return render(request,"index.html")
+
+
 
 
 def cpanel(request,slug):
