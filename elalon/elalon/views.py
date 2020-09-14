@@ -173,6 +173,11 @@ def cpanel(request,slug):
             return render(request,"clothes_home_dev.html",{'company':company, 'design': design})
         else:
             return render(request,"template2_dev.html",{'company':company, 'design': design})
+
+def delete_bussines(request):
+    pass
+    
+
     
         
 

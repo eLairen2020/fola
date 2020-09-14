@@ -69,6 +69,7 @@ def myprofile(request):
 	user_= request.user
 	profile = User_profile.objects.filter(username=user_)
 	category = Category.objects.all()
+	company = Company.objects.filter(User=user_)
 	
 	
 	
@@ -129,7 +130,7 @@ def myprofile(request):
 		return redirect ('myprofile')
 
 
-	return render(request, "myprofile.html" ,{'profile':profile , 'category':category })
+	return render(request, "myprofile.html" ,{'profile':profile , 'category':category, 'company':company })
 
 
 def myprofileedit(request):

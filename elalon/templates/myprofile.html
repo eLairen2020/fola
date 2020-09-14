@@ -299,3 +299,70 @@
 </div>   </div>
 
 
+<div class="section"  id="about">
+  <div style="padding-top:20px; padding-bottom:20px;">
+  <div class="container">
+    <div class="card" data-aos="fade-up" data-aos-offset="10">
+      <div class="row">
+       
+        <div class="col-12">
+        
+          <div class="card-body">
+            
+              
+            <div class="h4 mt-0 title">My Businesses</div><hr>
+            <div class="row">
+              <div class="col-3">
+                <p><strong>Name of Business </strong></p>
+                
+              </div>
+              <div class="col-3">
+                <p><strong>Category</strong></p>
+                
+              </div>
+              <div class="col-4">
+                <p><strong>Edit</strong></p>
+                
+              </div>
+              <div class="col-2">
+                <p><strong>Delete</strong></p>
+              </div>
+
+              <hr>
+            
+            </div>
+            <div class="row">
+            {% for i in company %}
+                <div class="col-3">
+                  <p>{{i.name_of_company}}</p>
+                  
+                </div>
+                <div class="col-3">
+                  <p>{{i.category}}</p>
+                  
+                </div>
+                <div class="col-4">
+                  
+                  <p><button class="btn"><a href="{% url 'cpanel' i.slug %}" c> Go to C panel</a></button></p>
+                </div>
+                <div class="col-2">
+                  <p><a href="" class="btn clever-btn"> Delete </a> </p>
+                  
+                </div>
+
+            {% endfor %}
+
+            </div>
+
+          </div>
+        </div>
+        
+        
+    </div>
+  </div>
+  </div>   
+</div>
+
+
+
+
