@@ -26,7 +26,7 @@ def template(request,slug):
         
         return render(request,"clothes_home.html",{'company':company, 'design': design})
 
-    elif cat == 'Food':
+    elif cat == 'Foods':
         return render(request,"template2.html",{'company':company, 'design': design})
 
     return render(request,"index.html")

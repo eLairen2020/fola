@@ -1,6 +1,148 @@
 {%load static%}
  {% block navbar %}{% include 'base.html' %}{% endblock%}
  
+ <style>
+ .form-popup-1 {
+  background-color :rgb( 1, 1, 1, 0.8);
+  display: none;
+  position: fixed;
+  padding-top:10%;
+  width: 100%;
+  overflow: scroll;
+  height : 100%;
+  z-index:10;
+}
+
+
+.form-container, .form-container1, .form-container2, .form-container3 {
+  max-width: 250px;
+  padding: 10px;
+  background-image: linear-gradient(to right, grey , #d1b280) !important;
+  
+}
+.form-container1 {
+  max-width: 300px;
+  padding: 10px;
+  
+  background-image: linear-gradient(to right, grey , #d1b280) !important;
+  
+}
+
+.form-container input[type=text], .form-container input[type=file],
+.form-container1 input[type=text], .form-container1 input[type=file],
+.form-container2 input[type=text], .form-container2 input[type=file],
+.form-container3 input[type=text], .form-container3 input[type=file] {
+  width: 100%;
+  padding: 5px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+  
+}
+
+.form-container input[type=text]:focus, .form-container input[type=file]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+.color {
+	float:right !important;
+	margin:0px 0px 0px 0px;
+	padding :0px 0px 0px 0px;
+
+}
+
+.form-container .btn,
+.form-container1 .btn,
+.form-container2 .btn,
+.form-container3 .btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 5px 5px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom:10px;
+  opacity: 0.8;
+}
+
+.form-container .cancel,
+.form-container1 .cancel,
+.form-container2 .cancel,
+.form-container3 .cancel {
+  background-color: red;
+}
+
+.form-container .btn:hover, .open-button:hover,
+.form-container1 .btn:hover, .open-button:hover,
+.form-container2 .btn:hover, .open-button:hover,
+.form-container3 .btn:hover, .open-button:hover {
+  opacity: 1;
+}
+</style>
+
+
+
+
+ <div class="form-popup-1" id="AddBussinessForm" >
+  
+  <div class="container">
+      <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+          <h2 class="text-center"> Add a Bussiness</h2>
+      <div class="row jumbotron">
+          <div class="col-12 col-sm-6 form-group">
+              <label for="name-f">Name</label>
+              <input type="text" class="form-control" name="hero" name="hero" >
+          </div>
+          <div class="col-12 col-sm-6 form-group">
+            <label for="name-f">Name</label>
+            <input type="text" class="form-control" name="hero" name="hero" >
+          </div>
+          <div class="col-12 col-sm-6 form-group">
+            <label for="name-f">Name</label>
+            <input type="text" class="form-control" name="hero" name="hero" >
+          </div>
+          <div class="col-12 col-sm-6 form-group">
+            <label for="name-f">Name</label>
+            <input type="text" class="form-control" name="hero" name="hero" >
+          </div>
+          <div class="col-12 col-sm-6 form-group">
+            <label for="name-f">Name</label>
+            <input type="text" class="form-control" name="hero" name="hero" >
+          </div>
+          <div class="col-12 col-sm-6 form-group">
+            <label for="name-f">Name</label>
+            <input type="text" class="form-control" name="hero" name="hero" >
+          </div>
+
+          <div class="col-12 col-md-6 form-group">
+              <label for="bg Image">Background Image </label>
+              <input type="file" class="form-control" name="bg" id="bg" >
+          </div>
+          <div class="col-12 form-group mb-0">
+              <input type="submit" class="btn2 float-right ml-3" name="submitAddbussiness">
+              <button class="btn1 float-right" onclick="closeForm()">Close</button>
+          </div>
+          
+      </div>
+      </form>
+  </div>
+</div>
+  <script>
+    function openForm() {
+      document.getElementById("AddBussinessForm").style.display = "block"; 
+    }
+   
+    function closeForm() {
+      document.getElementById("AddBussinessForm").style.display = "none";
+    }
+    
+    
+    
+    
+    </script>
+
+
 <div class="section" style="padding-top:20px; padding-bottom:20px;">
   <div class="container">
     <div class="card" data-aos="fade-up" data-aos-offset="10">
@@ -65,7 +207,10 @@
           <div class="card-body">
           
             <div class="h4 mt-0 title">About Me</div><hr>
+
+            <p><button class="btn clever-btn" onclick="openForm()"> Add a Bussiness </button> </p>
             <p><a href="" class="btn clever-btn"> Go to C panel</a></p>
+
           </div>
         </div>
         <div class="col-lg-7 col-md-7">
