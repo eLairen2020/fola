@@ -53,8 +53,6 @@ def register_user(request):
 			messages.info(request, 'Login Successfully')
 			return redirect('/')
 		
-
-	
 	return render(request, 'register.html', {'form':form})
 
 def logoutUser(request):
@@ -63,15 +61,12 @@ def logoutUser(request):
 	
 	return redirect('/')
 
-
 def myprofile(request):
 	
 	user_= request.user
 	profile = User_profile.objects.filter(username=user_)
 	category = Category.objects.all()
 	company = Company.objects.filter(User=user_)
-	
-	
 	
 	if request.method == 'POST' and 'submitAddbussiness' in request.POST:
 
@@ -115,7 +110,6 @@ def myprofile(request):
 		add_bussiness.add_pricingtable = add_pricingtable
 		add_bussiness.add_services = add_services
 		add_bussiness.add_menulist = add_menulist
-		
 		add_bussiness.save()
 
 		add_bussiness.refresh_from_db()
@@ -123,10 +117,13 @@ def myprofile(request):
 		com = request.POST.get('name_of_company')
 		com1 = Company.objects.get(name_of_company=com)
 		com2 = com1.name_of_company
-
 		add_design.company = Company.objects.get(name_of_company=com2)
-		
 		add_design.save()
+		return redirect ('myprofile')
+
+	elif request.method== "POST" and 'deletebusiness' in request.POST :
+		id = request.POST.get('id')
+		Company.objects.filter(id=id).delete()
 		return redirect ('myprofile')
 
 

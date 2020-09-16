@@ -320,7 +320,7 @@
         <div class="row jumbotron">
             <div class="col-12 col-sm-6 form-group">
                 <label for="name-f">Background Hero Image</label>
-                <input type="file" class="form-control" name="hero" name="hero" >
+                <input type="file" class="form-control" name="hero" name="hero" value="{{design.hero_background_image.url}}">
             </div>
             <div class="col-12 col-sm-6 form-group">
                 <label for="name-l">Background Color</label>
@@ -328,7 +328,7 @@
             </div>
             <div class="col-12 col-md-6 form-group">
                 <label for="bg Image">Background Image </label>
-                <input type="file" class="form-control" name="bg" id="bg" >
+                <input type="file" class="form-control" name="bg" id="bg" value="{{design.hero_image.url}}">
             </div>
             <div class="col-12 form-group mb-0">
                 <input type="submit" class="btn2 float-right ml-3" name="submitbg">
@@ -485,36 +485,111 @@
 
 <div class="form-popup-bg" id="bgimageForm4" >
   
-    <div class="container">
+    <div class="container" style="background-color:white;">
           <h2 class="text-center">Edit / Delete Items </h2>
-            <div class="row jumbotron">
-              <div class="row">
-                <div class="col-6 col-sm-6 col-lg-6 form-group">
-                <label for="name-f"><strong>Item Name</strong></label>
+            
+              <div class="row" >
+                <div class="col-4 form-group">
+                  <label for="name-f"><strong>Item Name</strong></label>
                 </div>
-                <div class="col-6 col-sm-6 col-lg-6 form-group">
-                <label for="name-f"><strong>Item Category</strong></label>
+                <div class="col-4 form-group">
+                  <label for="name-f"><strong>Edit </strong></label>
+                </div>
+                <div class="col-4 form-group">
+                  <label for="name-f"><strong>Delete</strong></label>
                 </div>
               </div>
               <div class="row">
-              
                 {% for i in company.items_set.all %}
-                <div class="col-12 col-sm-6 col-lg-6 form-group">
-                <p>{{i.item_name}}</p>
+                <div class="col-4 form-group">
+                  <label for="name-f"><strong>{{i.item_name}}</strong></label>
                 </div>
-                <div class="col-12 col-sm-6 col-lg-6 form-group">
-                <p>{{i.item_category}}</p>
-                
+                <div class="col-4 form-group">
+                  <a class="btn" data-toggle="collapse" href="#multiCollapseExample{{i.id}}" role="button" aria-expanded="false" aria-controls="multiCollapseExample{{i.id}}">Edit</a>
+                </div>
+                  
+                <div class="col-4 form-group">
+                  <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="hidden" name="id" id="id" value="{{i.id}}">
+                  <input type ="submit" name="deleteitem" id="deleteitem" >Delete </a>
+                </form>
                 </div>
                 {%endfor%}
+              </div>
+              <div class="row">
                 <button class="btn1 float-right " onclick="closeForm4()" > Close </button>
               </div>
-            </div>
-
-        
-        
+           
     </div>
+
+    <div class="container">
+      {% for i in company.items_set.all %}
+      <div class="collapse multi-collapse" id="multiCollapseExample{{i.id}}">
+      <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+          <h2 class="text-center">Edit Items </h2>
+      <div class="row jumbotron">
+          <div class="col-12 col-sm-6 form-group">
+              <label for="name-f">Item Name</label>
+              <input type="text" class="form-control" name="item_name" name="item_name" value={{i.item_name}} required> * required
+          </div>
+          <div class="col-12 col-sm-6 form-group">
+              <label for="name-l">Description</label>
+              <input type="text" class="form-control" name="description" id="description" value={{i.description}} >
+          </div>
+          <div class="col-12 col-sm-6 form-group">
+             <label for="name-l">Item Category</label>
+              <select class="form-control" style="width:100%;" name="item_category" id="item_category"  value={{i.item_category}} required> * required
+                          {% for s in company.itemcategory_set.all%}
+                          <option value="{{s.name}}">{{s.name}}</option>
+                          {% endfor %}
+                          </select>
+          </div>
+          <div class="col-12 col-sm-6 form-group">
+              <label for="name-l">Price</label>
+              <input type="text" class="form-control" name="price" id="price" value={{i.price}} required >
+          </div>
+          <div class="col-12 col-sm-6 form-group">
+              <label for="name-l">Tag</label>
+              <input type="text" class="form-control" name="tag" id="tag" value={{i.tag}} >
+          </div>
+          <div class="col-12 col-sm-6 form-group">
+              <label for="name-l">Stock</label>
+              <select class="form-control" style="width:100%;" name="stock" id="stock" value={{i.stock}} required> * required
+                          <option value="True">In Stocks </option>
+                          <option value="False">Out of Stocks </option>
+                          </select>
+          </div>
+          <div class="col-12 col-sm-6 form-group">
+              <label for="name-l">Image</label>
+              <input type="file" class="form-control" name="image" id="image"  value={{i.image}} required>
+              
+          </div>
+
+          <div class="col-12 form-group mb-0">
+              <input type="hidden" value="{{i.id}}" name="id" id="id">
+              <input type="submit" class="btn2 float-right ml-3" name="edititem" value="Add Item">
+              
+          </div>
+      </div>
+      </form>
+      
+    </div>
+    {% endfor %}
+      
+  </div>
+
+
 </div>
+
+
+
+
+
+
+
+
 
 
 
@@ -574,8 +649,9 @@ function closeForm4{{items.id}}() {
 
 
 
-  
+
     <section class="site-blocks-cover overflow-hidden bg-light" style="background-color:{{design.bg_color}} !important;">
+
       <div class="container">
         <div class="row">
           <div class="col-md-5 mr-auto align-self-center text-center text-md-left">
@@ -585,10 +661,15 @@ function closeForm4{{items.id}}() {
               <p><a href="#" class="btn btn-primary">Get In Touch</a></p>
             </div>
           </div>
+          {% if design.hero_image.url and design.hero_background_image.url != None %}
           <div class="col-md-5 align-self-center text-center text-md-right">
             <img src="{{design.hero_image.url}}" alt="Image" class="img-fluid cover-img">
             <img src="{{design.hero_background_image.url}}" alt="Image" class="img-fluid cover-img2">
-            
+          {% else %}
+          <div class="col-md-5 align-self-center text-center text-md-right">
+            <img src="" alt="Image" class="img-fluid cover-img">
+            <img src="" alt="Image" class="img-fluid cover-img2">
+          {% endif %}
           </div>
         </div>
       </div>

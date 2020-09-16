@@ -10,6 +10,9 @@ urlpatterns = [
     path('accounts/', include('user_account.urls')),
     path('<slug>', views.template, name='template'),
     path('<slug>/cpanel', views.cpanel, name='cpanel'),
+    
+    
+    
 
 ]
 urlpatterns = urlpatterns + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
