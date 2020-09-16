@@ -90,6 +90,10 @@ def myprofile(request):
 		add_services = request.POST.get('add_services')
 		add_menulist = request.POST.get('add_menulist')
 
+		if Company.objects.filter(slug=slug).exists():
+			messages.info (request,'This name is already exists. Pliz resubmit the form!!')
+			return redirect ('myprofile')
+
 		add_bussiness = Company()
 
 		add_bussiness.User = User
@@ -110,6 +114,7 @@ def myprofile(request):
 		add_bussiness.add_pricingtable = add_pricingtable
 		add_bussiness.add_services = add_services
 		add_bussiness.add_menulist = add_menulist
+		
 		add_bussiness.save()
 
 		add_bussiness.refresh_from_db()
@@ -120,6 +125,8 @@ def myprofile(request):
 		add_design.company = Company.objects.get(name_of_company=com2)
 		add_design.save()
 		return redirect ('myprofile')
+
+	
 
 	elif request.method== "POST" and 'deletebusiness' in request.POST :
 		id = request.POST.get('id')

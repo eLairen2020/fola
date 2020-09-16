@@ -255,6 +255,53 @@ def cpanel(request,slug):
                 return render(request,"clothes_home_dev.html",{'company':company, 'design': design})
             else:
                 return render(request,"template2_dev.html",{'company':company, 'design': design})
+            
+        elif request.method == 'POST' and 'submitsubtemplates' in request.POST:
+            User = request.user
+            category = company.category
+            name_of_company = company.name_of_company
+            des_of_company = Company.des_of_company
+            slug = company.slug
+            owner_image = company.owner_image
+            owner_of_the_company = company.owner_of_the_company
+            about_owner = company.about_owner
+            address = company.address
+            address1 = company.address1
+            company_email = company.company_email
+            company_phone = company.company_phone
+            opentiming = company.opentiming
+            add_photoslider = request.POST.get('add_photoslider')
+            add_offer_section = request.POST.get('add_offer_section')
+            add_pricingtable = request.POST.get('add_pricingtable')
+            add_services = request.POST.get('add_services')
+            add_menulist = request.POST.get('add_menulist')
+
+            edit_bussiness = Company.objects.get(name_of_company=name_of_company)
+
+            edit_bussiness.User = User
+            edit_bussiness.category = category
+            edit_bussiness.name_of_company = name_of_company
+            edit_bussiness.des_of_company = des_of_company
+            edit_bussiness.slug = slug
+            edit_bussiness.owner_image = owner_image
+            edit_bussiness.owner_of_the_company = owner_of_the_company
+            edit_bussiness.about_owner = about_owner
+            edit_bussiness.address = address
+            edit_bussiness.address1 = address1
+            edit_bussiness.company_email = company_email
+            edit_bussiness.company_phone = company_phone
+            edit_bussiness.opentiming = opentiming
+            edit_bussiness.add_photoslider = add_photoslider
+            edit_bussiness.add_offer_section = add_offer_section
+            edit_bussiness.add_pricingtable = add_pricingtable
+            edit_bussiness.add_services = add_services
+            edit_bussiness.add_menulist = add_menulist
+            
+            edit_bussiness.save()
+            if cat =='Clothes':
+                return render(request,"clothes_home_dev.html",{'company':company, 'design': design})
+            else:
+                return render(request,"template2_dev.html",{'company':company, 'design': design})
 
 
         elif request.method== "POST" and 'deleteitem' in request.POST :

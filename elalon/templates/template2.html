@@ -56,7 +56,11 @@
         <div class="row align-items-center">
           
           <div class="col-6 col-xl-2">
+            {% if company.logo.url != None %}
             <h1 class="mb-0 site-logo"><a href="#" class="h2 mb-0"><image src="{{company.logo.url}}"> </a></h1>
+            {% else %}
+            <h1 class="mb-0 site-logo"><a href="#" class="h2 mb-0"><image src="" alt="LOGO" > </a></h1>
+            {% endif %}
           </div>
 
           <div class="col-12 col-md-10 d-none d-xl-block">
@@ -89,14 +93,23 @@
           <div class="col-md-5 mr-auto align-self-center text-center text-md-left">
             <div class="intro-text">
               <h1 style="color:{{design.header_color}}">{{company.name_of_company}}</h1>
+            
+
                <h6 style="color:{{design.sub_header_color}}" class="mb-4">{{company.des_of_company}}  </h6>
               <p><a href="#" class="btn btn-primary">Get In Touch</a></p>
             </div>
           </div>
           <div class="col-md-5 align-self-center text-center text-md-right">
+            {%  if design.hero_image.url != None %}
             <img src="{{design.hero_image.url}}" alt="Image" class="img-fluid cover-img">
+            {% else %}
+            <img src="" alt="Image" class="img-fluid cover-img">
+            {% endif %}
+            {%  if design.hero_background_image.url != None %}
             <img src="{{design.hero_background_image.url}}" alt="Image" class="img-fluid cover-img2">
-            
+            {% else %}
+            <img src="" alt="Image" class="img-fluid cover-img2">
+            {% endif %}
           </div>
         </div>
       </div>
@@ -168,7 +181,7 @@
         </div>
       </div>
     </section>
-
+{% if company.add_pricingtable %}
     <section class="site-section" id="pricing-section">
       <div class="container">
         <div class="row justify-content-center" data-aos="fade-up">
@@ -248,6 +261,7 @@
         </div>
       </div>
     </section>
+{% endif %}
 
     
     <section class="site-section bg-light block-13" id="testimonials-section" data-aos="fade">
@@ -339,7 +353,7 @@
 
     
 
-
+{% if company.add_services %}
     <section class="site-section " id="services-section">
       <div class="container">
         <div class="row justify-content-center" data-aos="fade-up">
@@ -402,7 +416,7 @@
         </div>
       </div>
     </section>
-
+    {% endif %}
     
     
     <section class="bg-light" id="contact-section">

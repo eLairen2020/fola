@@ -1,5 +1,7 @@
 {%load static%}
  {% block navbar %}{% include 'base.html' %}{% endblock%}
+
+ {{msg}}
  
  <style>
  .form-popup-1 {
@@ -142,43 +144,13 @@
             <label for="name-f">opentiming</label>
             <input type="text" class="form-control" name="opentiming" id="opentiming" >
           </div>
-          <div class="col-12 col-sm-6 form-group">
-            <label for="name-f">add_photoslider</label>
-            <select class="form-control" style="width:100%;" name="add_photoslider" id="add_photoslider" required> * required
-              <option value="True">Yes </option>
-              <option value="False">No </option>
-              </select>
-          </div>
-          <div class="col-12 col-sm-6 form-group">
-            <label for="name-f">add_offer_section</label>
-            <select class="form-control" style="width:100%;" name="add_offer_section" id="add_offer_section" required> * required
-              <option value="True">Yes </option>
-              <option value="False">No </option>
-              </select>
-          </div>
-          <div class="col-12 col-sm-6 form-group">
-            <label for="name-f">add_pricingtable</label>
-            <select class="form-control" style="width:100%;" name="add_pricingtable" id="add_pricingtable" required> * required
-              <option value="True">Yes </option>
-              <option value="False">No </option>
-              </select>
-          </div>
-          <div class="col-12 col-sm-6 form-group">
-            <label for="name-f">add_services</label>
-            <select class="form-control" style="width:100%;" name="add_services" id="add_services" required> * required
-              <option value="True">Yes </option>
-              <option value="False">No </option>
-              </select>
-          </div>
-          <div class="col-12 col-sm-6 form-group">
-            <label for="name-f">add_menulist</label>
-            <select class="form-control" style="width:100%;" name="add_menulist" id="add_menulist" required> * required
-              <option value="True">Yes </option>
-              <option value="False">No </option>
-              </select>
-          </div>
           
           <div class="col-12 form-group mb-0">
+              <input type="hidden"  name="add_photoslider" id="add_photoslider"  value="False" >
+              <input type="hidden"  name="add_offer_section" id="add_offer_section"  value="False" >
+              <input type="hidden"  name="add_pricingtable" id="add_pricingtable"  value="False" >
+              <input type="hidden"  name="add_services" id="add_services"  value="False" >
+              <input type="hidden"  name="add_menulist" id="add_menulist"  value="False" >
               <input type="submit" class="btn2 float-right ml-3" name="submitAddbussiness">
               <button class="btn1 float-right" onclick="closeForm()">Close</button>
           </div>
