@@ -5,14 +5,13 @@ import os
 
 
 
+
 def elalon(request):
 
     heroimg1 = Items.objects.order_by('?')
     heroimg2 = Items.objects.order_by('?')
     heroimg3 = Items.objects.order_by('?')
 
-
-    
     return render(request,"index.html", { 'heroimg1':heroimg1,'heroimg2':heroimg2,'heroimg3':heroimg3 })
 
 def template(request,slug):
@@ -26,10 +25,12 @@ def template(request,slug):
         
         return render(request,"clothes_home.html",{'company':company, 'design': design})
 
-    elif cat == 'Food':
+    elif cat == 'Foods':
         return render(request,"template2.html",{'company':company, 'design': design})
 
     return render(request,"index.html")
+
+
 
 
 def cpanel(request,slug):
@@ -64,29 +65,90 @@ def cpanel(request,slug):
         if request.method == 'POST' and 'submitbg' in request.POST:
             
             bg_color1 = request.POST.get('bg_color')
-            bgimage = request.FILES['bg'] 
-            hero = request.FILES['hero']
-            edit_background = Design.objects.get(company=id)
-            edit_background.hero_background_image.delete(False)
-            edit_background.hero_image.delete(False)
-            edit_background.hero_image = hero
-            edit_background.logo = logo
-            edit_background.bg_color = bg_color1
-            edit_background.hero_background_image = bgimage
-            edit_background.welcome_color = welcome_color
-            edit_background.header_color = header_color
-            edit_background.header_font = header_font
-            edit_background.sub_header_font = sub_header_font
-            edit_background.sub_header_color = sub_header_color
-            edit_background.button_color = button_color
-            edit_background.p_color = p_color
-            edit_background.p_font = p_font
-            edit_background.hover_color = hover_color
-            edit_background.save()
-            if cat =='Clothes':
-                return render(request,"clothes_home_dev.html",{'company':company, 'design': design})
+            
+            bgimage1 = request.FILES['bg'] 
+            hero1 = request.FILES['hero']
+            if bgimage != None:
+                edit_background = Design.objects.get(company=id)
+                
+                edit_background.hero_image.delete(False)
+                edit_background.hero_image = hero1
+                edit_background.logo = logo
+                edit_background.bg_color = bg_color1
+                edit_background.hero_background_image = bgimage
+                edit_background.welcome_color = welcome_color
+                edit_background.header_color = header_color
+                edit_background.header_font = header_font
+                edit_background.sub_header_font = sub_header_font
+                edit_background.sub_header_color = sub_header_color
+                edit_background.button_color = button_color
+                edit_background.p_color = p_color
+                edit_background.p_font = p_font
+                edit_background.hover_color = hover_color
+                edit_background.save()
+            elif hero != None:
+                edit_background = Design.objects.get(company=id)
+                edit_background.hero_background_image.delete(False)
+                
+                edit_background.hero_image = hero
+                edit_background.logo = logo
+                edit_background.bg_color = bg_color1
+                edit_background.hero_background_image = bgimage1
+                edit_background.welcome_color = welcome_color
+                edit_background.header_color = header_color
+                edit_background.header_font = header_font
+                edit_background.sub_header_font = sub_header_font
+                edit_background.sub_header_color = sub_header_color
+                edit_background.button_color = button_color
+                edit_background.p_color = p_color
+                edit_background.p_font = p_font
+                edit_background.hover_color = hover_color
+                edit_background.save()
+
+            elif hero != None and bgimage != None:
+                edit_background = Design.objects.get(company=id)
+
+                edit_background.hero_background_image.delete(False)
+                edit_background.hero_image.delete(False)
+                edit_background.hero_background_image = bgimage1
+                edit_background.hero_image = hero1
+                edit_background.logo = logo
+                edit_background.bg_color = bg_color1
+                edit_background.welcome_color = welcome_color
+                edit_background.header_color = header_color
+                edit_background.header_font = header_font
+                edit_background.sub_header_font = sub_header_font
+                edit_background.sub_header_color = sub_header_color
+                edit_background.button_color = button_color
+                edit_background.p_color = p_color
+                edit_background.p_font = p_font
+                edit_background.hover_color = hover_color
+                edit_background.save()
+
             else:
-                return render(request,"template2_dev.html",{'company':company, 'design': design})
+                edit_background = Design.objects.get(company=id)
+                edit_background.hero_background_image.delete(False)
+                edit_background.hero_image.delete(False)
+                edit_background.hero_image = hero
+                edit_background.logo = logo
+                edit_background.bg_color = bg_color1
+                edit_background.hero_background_image = bgimage
+                edit_background.welcome_color = welcome_color
+                edit_background.header_color = header_color
+                edit_background.header_font = header_font
+                edit_background.sub_header_font = sub_header_font
+                edit_background.sub_header_color = sub_header_color
+                edit_background.button_color = button_color
+                edit_background.p_color = p_color
+                edit_background.p_font = p_font
+                edit_background.hover_color = hover_color
+                edit_background.save()
+
+
+                if cat =='Clothes':
+                    return render(request,"clothes_home_dev.html",{'company':company, 'design': design})
+                else:
+                    return render(request,"template2_dev.html",{'company':company, 'design': design})
                 
         elif request.method == 'POST' and 'submitfont' in request.POST :
             
@@ -164,7 +226,93 @@ def cpanel(request,slug):
                 return render(request,"clothes_home_dev.html",{'company':company, 'design': design})
             else:
                 return render(request,"template2_dev.html",{'company':company, 'design': design})
-    
+
+        elif request.method == 'POST' and 'edititem' in request.POST :
+            
+            name = request.POST.get('item_name')
+            des = request.POST.get('description')
+            item_cat = request.POST.get('item_category')
+            item_category = ItemCategory.objects.get(name=item_cat) 
+            price = request.POST.get('price')
+            tag = request.POST.get('tag')
+            stock = request.POST.get('stock')
+            image = request.FILES['image']
+            id = request.POST.get('id')
+            
+
+            edit_items = Items.objects.get(id=id)
+            edit_items.company = company
+            edit_items.item_name = name
+            edit_items.description = des
+            edit_items.item_category = item_category
+            edit_items.price = price
+            edit_items.tag = tag
+            edit_items.stock = stock
+            edit_items.image.delete(False)
+            edit_items.image = image
+            edit_items.save()
+            if cat =='Clothes':
+                return render(request,"clothes_home_dev.html",{'company':company, 'design': design})
+            else:
+                return render(request,"template2_dev.html",{'company':company, 'design': design})
+            
+        elif request.method == 'POST' and 'submitsubtemplates' in request.POST:
+            User = request.user
+            category = company.category
+            name_of_company = company.name_of_company
+            des_of_company = Company.des_of_company
+            slug = company.slug
+            owner_image = company.owner_image
+            owner_of_the_company = company.owner_of_the_company
+            about_owner = company.about_owner
+            address = company.address
+            address1 = company.address1
+            company_email = company.company_email
+            company_phone = company.company_phone
+            opentiming = company.opentiming
+            add_photoslider = request.POST.get('add_photoslider')
+            add_offer_section = request.POST.get('add_offer_section')
+            add_pricingtable = request.POST.get('add_pricingtable')
+            add_services = request.POST.get('add_services')
+            add_menulist = request.POST.get('add_menulist')
+
+            edit_bussiness = Company.objects.get(name_of_company=name_of_company)
+
+            edit_bussiness.User = User
+            edit_bussiness.category = category
+            edit_bussiness.name_of_company = name_of_company
+            edit_bussiness.des_of_company = des_of_company
+            edit_bussiness.slug = slug
+            edit_bussiness.owner_image = owner_image
+            edit_bussiness.owner_of_the_company = owner_of_the_company
+            edit_bussiness.about_owner = about_owner
+            edit_bussiness.address = address
+            edit_bussiness.address1 = address1
+            edit_bussiness.company_email = company_email
+            edit_bussiness.company_phone = company_phone
+            edit_bussiness.opentiming = opentiming
+            edit_bussiness.add_photoslider = add_photoslider
+            edit_bussiness.add_offer_section = add_offer_section
+            edit_bussiness.add_pricingtable = add_pricingtable
+            edit_bussiness.add_services = add_services
+            edit_bussiness.add_menulist = add_menulist
+            
+            edit_bussiness.save()
+            if cat =='Clothes':
+                return render(request,"clothes_home_dev.html",{'company':company, 'design': design})
+            else:
+                return render(request,"template2_dev.html",{'company':company, 'design': design})
+
+
+        elif request.method== "POST" and 'deleteitem' in request.POST :
+
+            id = request.POST.get('id')
+            Items.objects.filter(id=id).delete()
+
+            if cat =='Clothes':
+                return render(request,"clothes_home_dev.html",{'company':company, 'design': design})
+            else:
+                return render(request,"template2_dev.html",{'company':company, 'design': design})
         
         
 
@@ -172,6 +320,16 @@ def cpanel(request,slug):
             return render(request,"clothes_home_dev.html",{'company':company, 'design': design})
         else:
             return render(request,"template2_dev.html",{'company':company, 'design': design})
+
+
+
+
+
+    
+        
+
+    
+
     
         
 

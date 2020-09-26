@@ -1,6 +1,179 @@
 {%load static%}
  {% block navbar %}{% include 'base.html' %}{% endblock%}
+
+ {{msg}}
  
+ <style>
+ .form-popup-1 {
+  background-color :rgb( 1, 1, 1, 0.8);
+  display: none;
+  position: fixed;
+  padding-top:10%;
+  width: 100%;
+  overflow: scroll;
+  height : 100%;
+  z-index:10;
+}
+
+
+.form-container, .form-container1, .form-container2, .form-container3 {
+  max-width: 250px;
+  padding: 10px;
+  background-image: linear-gradient(to right, grey , #d1b280) !important;
+  
+}
+.form-container1 {
+  max-width: 300px;
+  padding: 10px;
+  
+  background-image: linear-gradient(to right, grey , #d1b280) !important;
+  
+}
+
+.form-container input[type=text], .form-container input[type=file],
+.form-container1 input[type=text], .form-container1 input[type=file],
+.form-container2 input[type=text], .form-container2 input[type=file],
+.form-container3 input[type=text], .form-container3 input[type=file] {
+  width: 100%;
+  padding: 5px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+  
+}
+
+.form-container input[type=text]:focus, .form-container input[type=file]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+.color {
+	float:right !important;
+	margin:0px 0px 0px 0px;
+	padding :0px 0px 0px 0px;
+
+}
+
+.form-container .btn,
+.form-container1 .btn,
+.form-container2 .btn,
+.form-container3 .btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 5px 5px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom:10px;
+  opacity: 0.8;
+}
+
+.form-container .cancel,
+.form-container1 .cancel,
+.form-container2 .cancel,
+.form-container3 .cancel {
+  background-color: red;
+}
+
+.form-container .btn:hover, .open-button:hover,
+.form-container1 .btn:hover, .open-button:hover,
+.form-container2 .btn:hover, .open-button:hover,
+.form-container3 .btn:hover, .open-button:hover {
+  opacity: 1;
+}
+</style>
+
+
+
+
+ <div class="form-popup-1" id="AddBussinessForm" >
+  
+  <div class="container">
+      <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+          <h2 class="text-center"> Add a Bussiness</h2>
+      <div class="row jumbotron">
+          <div class="col-12 col-sm-6 form-group">
+              <label for="name-f">Category</label>
+              <select class="form-control" style="width:100%;" name="category" id="category" required> * required
+                {% for s in category %}
+                <option value="{{s.name}}">{{s.name}}</option>
+                {% endfor %}
+                </select>
+          </div>
+          <div class="col-12 col-sm-6 form-group">
+            <label for="name-f">name_of_company</label>
+            <input type="text" class="form-control" name="name_of_company" id="name_of_company" >
+          </div>
+          <div class="col-12 col-sm-6 form-group">
+            <label for="name-f">des_of_company</label>
+            <input type="text" class="form-control" name="des_of_company" id="des_of_company" >
+          </div>
+          <div class="col-12 col-sm-6 form-group">
+            <label for="name-f">slug</label>
+            <input type="text" class="form-control" name="slug" id="slug" >
+          </div>
+          <div class="col-12 col-sm-6 form-group">
+            <label for="name-f">owner_of_the_company</label>
+            <input type="text" class="form-control" name="owner_of_the_company" id="owner_of_the_company" >
+          </div>
+          <div class="col-12 col-sm-6 form-group">
+            <label for="name-f">owner_image</label>
+            <input type="file" class="form-control" name="owner_image" id="owner_image" >
+          </div>
+          <div class="col-12 col-sm-6 form-group">
+            <label for="name-f">about_owner</label>
+            <input type="text" class="form-control" name="about_owner" id="about_owner" >
+          </div>
+          <div class="col-12 col-sm-6 form-group">
+            <label for="name-f">address</label>
+            <input type="text" class="form-control" name="address" id="address" >
+          </div>
+          <div class="col-12 col-sm-6 form-group">
+            <label for="name-f">address1</label>
+            <input type="text" class="form-control" name="address1" id="address1" >
+          </div>
+          <div class="col-12 col-sm-6 form-group">
+            <label for="name-f">company_email</label>
+            <input type="text" class="form-control" name="company_email" id="company_email" >
+          </div>
+          <div class="col-12 col-sm-6 form-group">
+            <label for="name-f">company_phone</label>
+            <input type="text" class="form-control" name="company_phone" id="company_phone" >
+          </div>
+          <div class="col-12 col-sm-6 form-group">
+            <label for="name-f">opentiming</label>
+            <input type="text" class="form-control" name="opentiming" id="opentiming" >
+          </div>
+          
+          <div class="col-12 form-group mb-0">
+              <input type="hidden"  name="add_photoslider" id="add_photoslider"  value="False" >
+              <input type="hidden"  name="add_offer_section" id="add_offer_section"  value="False" >
+              <input type="hidden"  name="add_pricingtable" id="add_pricingtable"  value="False" >
+              <input type="hidden"  name="add_services" id="add_services"  value="False" >
+              <input type="hidden"  name="add_menulist" id="add_menulist"  value="False" >
+              <input type="submit" class="btn2 float-right ml-3" name="submitAddbussiness">
+              <button class="btn1 float-right" onclick="closeForm()">Close</button>
+          </div>
+          
+      </div>
+      </form>
+  </div>
+</div>
+  <script>
+    function openForm() {
+      document.getElementById("AddBussinessForm").style.display = "block"; 
+    }
+   
+    function closeForm() {
+      document.getElementById("AddBussinessForm").style.display = "none";
+    }
+    
+    
+    
+    
+    </script>
+
+
 <div class="section" style="padding-top:20px; padding-bottom:20px;">
   <div class="container">
     <div class="card" data-aos="fade-up" data-aos-offset="10">
@@ -65,7 +238,10 @@
           <div class="card-body">
           
             <div class="h4 mt-0 title">About Me</div><hr>
-            <p><a href="" class="btn clever-btn"> Go to C panel</a></p>
+
+            <p><button class="btn clever-btn" onclick="openForm()"> Add a Bussiness </button> </p>
+            
+
           </div>
         </div>
         <div class="col-lg-7 col-md-7">
@@ -93,5 +269,75 @@
     </div>
 </div>
 </div>   </div>
+
+
+<div class="section"  id="about">
+  <div style="padding-top:20px; padding-bottom:20px;">
+  <div class="container">
+    <div class="card" data-aos="fade-up" data-aos-offset="10">
+      <div class="row">
+       
+        <div class="col-12">
+        
+          <div class="card-body">
+            
+              
+            <div class="h4 mt-0 title">My Businesses</div><hr>
+            <div class="row">
+              <div class="col-3">
+                <p><strong>Name of Business </strong></p>
+                
+              </div>
+              <div class="col-3">
+                <p><strong>Category</strong></p>
+                
+              </div>
+              <div class="col-4">
+                <p><strong>Edit</strong></p>
+                
+              </div>
+              <div class="col-2">
+                <p><strong>Delete</strong></p>
+              </div>
+
+              <hr>
+            
+            </div>
+            <div class="row">
+            {% for i in company %}
+                <div class="col-3">
+                  <p>{{i.name_of_company}}</p>
+                  
+                </div>
+                <div class="col-3">
+                  <p>{{i.category}}</p>
+                  
+                </div>
+                <div class="col-4">
+                  
+                  <p><button class="btn"><a href="{% url 'cpanel' i.slug %}" c> Go to C panel</a></button></p>
+                </div>
+                <div class="col-2">
+                  <form method="POST" >
+                    {% csrf_token %}
+                  <input type="hidden" name="id" id="id" value="{{i.id}}">
+                  <input type="submit" class="btn clever-btn" name="deletebusiness" id="deletebusiness" value="Delete">
+                  </form>
+                </div>
+
+            {% endfor %}
+
+            </div>
+
+          </div>
+        </div>
+        
+        
+    </div>
+  </div>
+  </div>   
+</div>
+
+
 
 

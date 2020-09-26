@@ -12,6 +12,7 @@ from django.http import HttpResponse
 from django.contrib import messages 
 
 from .models import User_profile
+from company.models import Category, Company, Design
 # Create your views here.
 
 def signin(request):
@@ -52,8 +53,6 @@ def register_user(request):
 			messages.info(request, 'Login Successfully')
 			return redirect('/')
 		
-
-	
 	return render(request, 'register.html', {'form':form})
 
 def logoutUser(request):
@@ -62,27 +61,91 @@ def logoutUser(request):
 	
 	return redirect('/')
 
-
 def myprofile(request):
 	
 	user_= request.user
 	profile = User_profile.objects.filter(username=user_)
+	category = Category.objects.all()
+	company = Company.objects.filter(User=user_)
+	
+	if request.method == 'POST' and 'submitAddbussiness' in request.POST:
+
+		User= request.user
+		cat = request.POST.get('category')
+		category = Category.objects.get(name=cat)
+		name_of_company = request.POST.get('name_of_company')
+		des_of_company = request.POST.get('des_of_company')
+		slug = request.POST.get('slug')
+		owner_image = request.FILES['owner_image']
+		owner_of_the_company = request.POST.get('owner_of_the_company')
+		about_owner = request.POST.get('about_owner')
+		address = request.POST.get('address')
+		address1 = request.POST.get('address1')
+		company_email = request.POST.get('company_email')
+		company_phone = request.POST.get('company_phone')
+		opentiming = request.POST.get('opentiming')
+		add_photoslider = request.POST.get('add_photoslider')
+		add_offer_section = request.POST.get('add_offer_section')
+		add_pricingtable = request.POST.get('add_pricingtable')
+		add_services = request.POST.get('add_services')
+		add_menulist = request.POST.get('add_menulist')
+
+		if Company.objects.filter(slug=slug).exists():
+			messages.info (request,'This name is already exists. Pliz resubmit the form!!')
+			return redirect ('myprofile')
+
+		add_bussiness = Company()
+
+		add_bussiness.User = User
+		add_bussiness.category = category
+		add_bussiness.name_of_company = name_of_company
+		add_bussiness.des_of_company = des_of_company
+		add_bussiness.slug = slug
+		add_bussiness.owner_image = owner_image
+		add_bussiness.owner_of_the_company = owner_of_the_company
+		add_bussiness.about_owner = about_owner
+		add_bussiness.address = address
+		add_bussiness.address1 = address1
+		add_bussiness.company_email = company_email
+		add_bussiness.company_phone = company_phone
+		add_bussiness.opentiming = opentiming
+		add_bussiness.add_photoslider = add_photoslider
+		add_bussiness.add_offer_section = add_offer_section
+		add_bussiness.add_pricingtable = add_pricingtable
+		add_bussiness.add_services = add_services
+		add_bussiness.add_menulist = add_menulist
+		
+		add_bussiness.save()
+
+		add_bussiness.refresh_from_db()
+		add_design = Design()
+		com = request.POST.get('name_of_company')
+		com1 = Company.objects.get(name_of_company=com)
+		com2 = com1.name_of_company
+		add_design.company = Company.objects.get(name_of_company=com2)
+		add_design.save()
+		return redirect ('myprofile')
+
+	
+
+	elif request.method== "POST" and 'deletebusiness' in request.POST :
+		id = request.POST.get('id')
+		Company.objects.filter(id=id).delete()
+		return redirect ('myprofile')
 
 
-	return render(request, "myprofile.html" ,{'profile':profile })
+	return render(request, "myprofile.html" ,{'profile':profile , 'category':category, 'company':company })
 
 
 def myprofileedit(request):
-	
-	
 	
 	user_= request.user
 	profile = User_profile.objects.filter(username=user_)
 	count = User_profile.objects.filter(username=user_).count
 	form = PasswordChangeForm(request.user)
 	
-
 	if request.method == 'POST' and 'submit_basic' in request.POST:
+
 		first_name = request.POST.get('first_name')
 		last_name = request.POST.get('last_name')
 		phone = request.POST.get('phone')
@@ -102,8 +165,6 @@ def myprofileedit(request):
 		edit_user_profile.say_something_about_yourself = about
 
 		edit_user_profile.save()
-
-		
 		return redirect ('myprofile')
 
 

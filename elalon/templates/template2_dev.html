@@ -101,6 +101,19 @@
   width: 250px;
   z-index: 9;
 }
+.open-button5 {
+  background-image: linear-gradient(to right, white , #d1b280) !important;
+  color: Black;
+  padding: 5px 5px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  position: fixed;
+  top: 400px;
+  right: 0px;
+  width: 250px;
+  z-index: 9;
+}
 
 
   
@@ -273,7 +286,11 @@
         <div class="row align-items-center">
           
           <div class="col-6 col-xl-2">
+            {% if company.logo.url != None %}
             <h1 class="mb-0 site-logo"><a href="#" class="h2 mb-0"><image src="{{company.logo.url}}"> </a></h1>
+            {% else %}
+            <h1 class="mb-0 site-logo"><a href="#" class="h2 mb-0"><image src="" alt="LOGO" > </a></h1>
+            {% endif %}
           </div>
 
           <div class="col-12 col-md-10 d-none d-xl-block">
@@ -305,6 +322,7 @@
     <button class="open-button2" onclick="openForm2()">Add Items Category </button>
     <button class="open-button3" onclick="openForm3()">Add Items </button>
     <button class="open-button4" onclick="openForm4()">Edit / Delete Items </button>
+    <button class="open-button5" onclick="openForm5()">Add / Remove sub templates </button>
 
 
 
@@ -328,7 +346,7 @@
             </div>
             <div class="col-12 col-md-6 form-group">
                 <label for="bg Image">Background Image </label>
-                <input type="file" class="form-control" name="bg" id="bg" >
+                <input type="file" class="form-control" name="bg" id="bg">
             </div>
             <div class="col-12 form-group mb-0">
                 <input type="submit" class="btn2 float-right ml-3" name="submitbg">
@@ -485,36 +503,162 @@
 
 <div class="form-popup-bg" id="bgimageForm4" >
   
-    <div class="container">
+    <div class="container" style="background-color:white;">
           <h2 class="text-center">Edit / Delete Items </h2>
-            <div class="row jumbotron">
-              <div class="row">
-                <div class="col-6 col-sm-6 col-lg-6 form-group">
-                <label for="name-f"><strong>Item Name</strong></label>
+            
+              <div class="row" >
+                <div class="col-4 form-group">
+                  <label for="name-f"><strong>Item Name</strong></label>
                 </div>
-                <div class="col-6 col-sm-6 col-lg-6 form-group">
-                <label for="name-f"><strong>Item Category</strong></label>
+                <div class="col-4 form-group">
+                  <label for="name-f"><strong>Edit </strong></label>
+                </div>
+                <div class="col-4 form-group">
+                  <label for="name-f"><strong>Delete</strong></label>
                 </div>
               </div>
               <div class="row">
-              
                 {% for i in company.items_set.all %}
-                <div class="col-12 col-sm-6 col-lg-6 form-group">
-                <p>{{i.item_name}}</p>
+                <div class="col-4 form-group">
+                  <label for="name-f"><strong>{{i.item_name}}</strong></label>
                 </div>
-                <div class="col-12 col-sm-6 col-lg-6 form-group">
-                <p>{{i.item_category}}</p>
-                
+                <div class="col-4 form-group">
+                  <a class="btn" data-toggle="collapse" href="#multiCollapseExample{{i.id}}" role="button" aria-expanded="false" aria-controls="multiCollapseExample{{i.id}}">Edit</a>
+                </div>
+                  
+                <div class="col-4 form-group">
+                  <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="hidden" name="id" id="id" value="{{i.id}}">
+                  <input type ="submit" name="deleteitem" id="deleteitem" >Delete </a>
+                </form>
                 </div>
                 {%endfor%}
+              </div>
+              <div class="row">
                 <button class="btn1 float-right " onclick="closeForm4()" > Close </button>
               </div>
-            </div>
-
-        
-        
+           
     </div>
+
+    <div class="container">
+      {% for i in company.items_set.all %}
+      <div class="collapse multi-collapse" id="multiCollapseExample{{i.id}}">
+      <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+          <h2 class="text-center">Edit Items </h2>
+      <div class="row jumbotron">
+          <div class="col-12 col-sm-6 form-group">
+              <label for="name-f">Item Name</label>
+              <input type="text" class="form-control" name="item_name" name="item_name" value={{i.item_name}} required> * required
+          </div>
+          <div class="col-12 col-sm-6 form-group">
+              <label for="name-l">Description</label>
+              <input type="text" class="form-control" name="description" id="description" value={{i.description}} >
+          </div>
+          <div class="col-12 col-sm-6 form-group">
+             <label for="name-l">Item Category</label>
+              <select class="form-control" style="width:100%;" name="item_category" id="item_category"  value={{i.item_category}} required> * required
+                          {% for s in company.itemcategory_set.all%}
+                          <option value="{{s.name}}">{{s.name}}</option>
+                          {% endfor %}
+                          </select>
+          </div>
+          <div class="col-12 col-sm-6 form-group">
+              <label for="name-l">Price</label>
+              <input type="text" class="form-control" name="price" id="price" value={{i.price}} required >
+          </div>
+          <div class="col-12 col-sm-6 form-group">
+              <label for="name-l">Tag</label>
+              <input type="text" class="form-control" name="tag" id="tag" value={{i.tag}} >
+          </div>
+          <div class="col-12 col-sm-6 form-group">
+              <label for="name-l">Stock</label>
+              <select class="form-control" style="width:100%;" name="stock" id="stock" value={{i.stock}} required> * required
+                          <option value="True">In Stocks </option>
+                          <option value="False">Out of Stocks </option>
+                          </select>
+          </div>
+          <div class="col-12 col-sm-6 form-group">
+              <label for="name-l">Image</label>
+              <input type="file" class="form-control" name="image" id="image"  value={{i.image}} required>
+              
+          </div>
+
+          <div class="col-12 form-group mb-0">
+              <input type="hidden" value="{{i.id}}" name="id" id="id">
+              <input type="submit" class="btn2 float-right ml-3" name="edititem" value="Add Item">
+              
+          </div>
+      </div>
+      </form>
+      
+    </div>
+    {% endfor %}
+      
+  </div>
+
+
 </div>
+
+
+<div class="form-popup-bg" id="bgimageForm5" >
+  
+  <div class="container">
+      <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+          <h2 class="text-center">Add or Remove Sub templates </h2>
+      <div class="row jumbotron">
+
+          <div class="col-12 col-sm-6 form-group">
+            <label for="name-f">add_photoslider</label>
+            <select class="form-control" style="width:100%;" name="add_photoslider" id="add_photoslider" value={{company.add_photoslider}} required> * required
+              <option value="True">Yes </option>
+              <option value="False">No </option>
+              </select>
+          </div>
+          <div class="col-12 col-sm-6 form-group">
+            <label for="name-f">add_offer_section</label>
+            <select class="form-control" style="width:100%;" name="add_offer_section" id="add_offer_section" value={{company.add_offer_section}} required> * required
+              <option value="True">Yes </option>
+              <option value="False">No </option>
+              </select>
+          </div>
+          <div class="col-12 col-sm-6 form-group">
+            <label for="name-f">add_pricingtable</label>
+            <select class="form-control" style="width:100%;" name="add_pricingtable" id="add_pricingtable" value={{company.add_pricingtable}} required> * required
+              <option value="True">Yes </option>
+              <option value="False">No </option>
+              </select>
+          </div>
+          <div class="col-12 col-sm-6 form-group">
+            <label for="name-f">add_services</label>
+            <select class="form-control" style="width:100%;" name="add_services" id="add_services" value={{company.add_services}} required> * required
+              <option value="True">Yes </option>
+              <option value="False">No </option>
+              </select>
+          </div>
+          <div class="col-12 col-sm-6 form-group">
+            <label for="name-f">add_menulist</label>
+            <select class="form-control" style="width:100%;" name="add_menulist" id="add_menulist" value={{company.add_menulist}} required> * required
+              <option value="True">Yes </option>
+              <option value="False">No </option>
+              </select>
+          </div>
+
+          <div class="col-12 form-group mb-0">
+              <input type="submit" class="btn2 float-right ml-3" name="submitsubtemplates" value="Submit">
+              <button class="btn1 float-right " onclick="closeForm5()" > Close </button>
+          </div>
+      </div>
+      </form>
+      
+  </div>
+</div>
+
+
+
+
 
 
 
@@ -542,6 +686,10 @@ function openForm4{{items.id}}() {
 }
 {%endfor%}
 
+function openForm5() {
+  document.getElementById("bgimageForm5").style.display = "block"; 
+}
+
 
 
 function closeForm() {
@@ -567,6 +715,10 @@ function closeForm4{{items.id}}() {
 }
 {%endfor%}
 
+function closeForm5() {
+  document.getElementById("bgimageForm5").style.display = "none";
+}
+
 
 
 </script>
@@ -574,8 +726,9 @@ function closeForm4{{items.id}}() {
 
 
 
-  
+
     <section class="site-blocks-cover overflow-hidden bg-light" style="background-color:{{design.bg_color}} !important;">
+
       <div class="container">
         <div class="row">
           <div class="col-md-5 mr-auto align-self-center text-center text-md-left">
@@ -585,10 +738,18 @@ function closeForm4{{items.id}}() {
               <p><a href="#" class="btn btn-primary">Get In Touch</a></p>
             </div>
           </div>
+          
           <div class="col-md-5 align-self-center text-center text-md-right">
+            {%  if design.hero_image.url != None %}
             <img src="{{design.hero_image.url}}" alt="Image" class="img-fluid cover-img">
+            {% else %}
+            <img src="" alt="Image" class="img-fluid cover-img">
+            {% endif %}
+            {%  if design.hero_background_image.url != None %}
             <img src="{{design.hero_background_image.url}}" alt="Image" class="img-fluid cover-img2">
-            
+            {% else %}
+            <img src="" alt="Image" class="img-fluid cover-img2">
+            {% endif %}
           </div>
         </div>
       </div>

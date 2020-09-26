@@ -21,7 +21,7 @@ class Company(models.Model):
     name_of_company = models.CharField(max_length=200)
     des_of_company = models.CharField(max_length=300, blank = True)
 
-    slug = models.SlugField(max_length = 200, null = True, blank = True) 
+    slug = models.SlugField(max_length = 200, unique='True') 
     owner_image = models.ImageField(upload_to='company_owner_image', blank=True)
     owner_of_the_company = models.CharField(max_length=100)
 
