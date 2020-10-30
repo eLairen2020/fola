@@ -68,14 +68,14 @@ def cpanel(request,slug):
             
             bgimage1 = request.FILES['bg'] 
             hero1 = request.FILES['hero']
-            if bgimage != None:
+            if hero_image != None:
                 edit_background = Design.objects.get(company=id)
                 
                 edit_background.hero_image.delete(False)
                 edit_background.hero_image = hero1
                 edit_background.logo = logo
                 edit_background.bg_color = bg_color1
-                edit_background.hero_background_image = bgimage
+                edit_background.hero_background_image = hero_image
                 edit_background.welcome_color = welcome_color
                 edit_background.header_color = header_color
                 edit_background.header_font = header_font
@@ -105,7 +105,7 @@ def cpanel(request,slug):
                 edit_background.hover_color = hover_color
                 edit_background.save()
 
-            elif hero != None and bgimage != None:
+            elif hero != None and hero_image != None:
                 edit_background = Design.objects.get(company=id)
 
                 edit_background.hero_background_image.delete(False)

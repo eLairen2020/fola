@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 from django.db import models
-from .models import Category, Company, ItemCategory, Items, Design, Photoslider, Offersection, Services
+from .models import Category, Company, ItemCategory, Items, Design, Photoslider, Offersection, Services, ItemImage
 
 
 class ItemsAdmin(admin.ModelAdmin):
@@ -19,6 +19,8 @@ admin.site.register(Design)
 admin.site.register(Photoslider)
 admin.site.register(Offersection)
 admin.site.register(Services)
+admin.site.register(ItemImage)
+
 
 
 

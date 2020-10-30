@@ -16,15 +16,12 @@ class Category(models.Model):
 
 class Company(models.Model):
     User = models.ForeignKey(User, on_delete=models.CASCADE)
-    
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     name_of_company = models.CharField(max_length=200)
     des_of_company = models.CharField(max_length=300, blank = True)
-
     slug = models.SlugField(max_length = 200, unique='True') 
     owner_image = models.ImageField(upload_to='company_owner_image', blank=True)
     owner_of_the_company = models.CharField(max_length=100)
-
     about_owner = models.CharField(max_length=500, null=True, blank=True)
     address = models.CharField(max_length=200)
     address1 = models.CharField(max_length=200, null=True, blank=True)
@@ -93,12 +90,21 @@ class Items(models.Model):
     item_category = models.ForeignKey(ItemCategory, on_delete=models.CASCADE)
     price = models.CharField(max_length=100, blank=True)
     tag =  models.CharField(max_length=100, null=True, blank=True)
-    stock = models.BooleanField()
-    image = models.ImageField(upload_to='item_image', blank=True, null=True,)
+    stock = models.BooleanField(default=False)
     class Meta:
         verbose_name_plural = "Items"
     def __str__(self):
         return str(self.item_name)
+
+class ItemImage(models.Model):
+    item = models.ForeignKey(Items, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='item_image', blank=True, null=True,)
+
+    class Meta:
+        verbose_name_plural = "ItemImage"
+    def __str__(self):
+        return str(self.item)
+
 
 class Design(models.Model):
     company = models.OneToOneField(Company, on_delete=models.CASCADE)

@@ -487,9 +487,9 @@ textarea:focus {
   position: relative;
   z-index: 1;
   width: 100%;
-  height: 80px; }
+  height: 75px; }
   .clever-main-menu .classy-navbar {
-    height: 80px;
+    height: 75px!important;
      
    }
   .clever-main-menu .classynav ul li a {
